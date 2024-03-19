@@ -76,6 +76,16 @@ export default defineType({
   preview: {
     select: {
       title: 'name',
+      tags0: 'tags.0.name',
+      tags1: 'tags.1.name',
+      tags2: 'tags.2.name',
+      tags3: 'tags.3.name'
     },
+    prepare: ({title, tags0, tags1, tags2, tags3 }) => {
+        const tags = [tags0, tags1, tags2].filter(Boolean)
+        const subtitles = tags.length > 0 ? tags.join(', ') : ''
+        const hasMoreTags = Boolean(tags3)
+        return {title, subtitle: hasMoreTags ? `${subtitles}...` : subtitles}
+    }
   },
 })
