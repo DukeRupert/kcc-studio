@@ -9,14 +9,16 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
+      description: "What’s in a name?  That which we call a rose  by any other name would smell as sweet.",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: "Used to create unique routes for each crepe",
       options: {
-        source: 'title',
+        source: 'name',
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
@@ -25,23 +27,13 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        },
-      ],
+      type: 'cloudinary.asset',
+      description: "Primary image used for the crepe"
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      date: 'date',
+      title: 'name',
       media: 'image',
     },
   },
